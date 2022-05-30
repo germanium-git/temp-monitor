@@ -74,7 +74,7 @@ jobs:
       env:
         FINGERPRINT: ${{ secrets.TF_VAR_FINGERPRINT }}
       run: |
-        example-command "$FINGERPRINT"
+        cat $FINGERPRINT
 
 
     # Install the latest version of Terraform CLI
