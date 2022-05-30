@@ -72,9 +72,9 @@ jobs:
     # Environmental variables from encrypted secrets
     - shell: bash
       env:
-        FINGERPRINT: ${{ secrets.TF_VAR_FINGERPRINT }}
+        TF_VAR_FINGERPRINT: ${{ secrets.TF_VAR_FINGERPRINT }}
       run: |
-        echo $FINGERPRINT
+        echo $TF_VAR_FINGERPRINT
 
     # Install the latest version of Terraform CLI
     - name: HashiCorp - Setup Terraform
