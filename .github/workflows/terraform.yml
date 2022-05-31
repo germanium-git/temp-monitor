@@ -77,7 +77,10 @@ jobs:
 
     # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
     - name: Terraform Init
+      env:
+        TF_VAR_PREAUTH_REQUEST: ${{ secrets.TF_VAR_PREAUTH_REQUEST }}
       run: terraform init
+
 
 
     # Checks that all Terraform configuration files adhere to a canonical format
@@ -88,6 +91,7 @@ jobs:
         TF_VAR_PRIVATE_KEY: ${{ secrets.TF_VAR_PRIVATE_KEY }}
         TF_VAR_TENANCY_OCID: ${{ secrets.TF_VAR_TENANCY_OCID }}
         TF_VAR_USER_OCID: ${{ secrets.TF_VAR_USER_OCID }}
+        TF_VAR_PREAUTH_REQUEST: ${{ secrets.TF_VAR_PREAUTH_REQUEST }}
       run: terraform fmt -check
       continue-on-error: true
 
@@ -100,6 +104,7 @@ jobs:
         TF_VAR_PRIVATE_KEY: ${{ secrets.TF_VAR_PRIVATE_KEY }}
         TF_VAR_TENANCY_OCID: ${{ secrets.TF_VAR_TENANCY_OCID }}
         TF_VAR_USER_OCID: ${{ secrets.TF_VAR_USER_OCID }}
+        TF_VAR_PREAUTH_REQUEST: ${{ secrets.TF_VAR_PREAUTH_REQUEST }}
       run: |
         terraform plan -input=false
 
@@ -112,5 +117,6 @@ jobs:
         TF_VAR_PRIVATE_KEY: ${{ secrets.TF_VAR_PRIVATE_KEY }}
         TF_VAR_TENANCY_OCID: ${{ secrets.TF_VAR_TENANCY_OCID }}
         TF_VAR_USER_OCID: ${{ secrets.TF_VAR_USER_OCID }}
+        TF_VAR_PREAUTH_REQUEST: ${{ secrets.TF_VAR_PREAUTH_REQUEST }}
       if: github.ref == 'refs/heads/main' && github.event_name == 'push'
       run: terraform apply -auto-approve -input=false
