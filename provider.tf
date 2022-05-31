@@ -4,6 +4,10 @@ terraform {
          source = "hashicorp/oci"
       }
    }
+    backend "http" {
+      update_method = "PUT"
+      address       = var.PREAUTH_REQUEST
+  }
 }
 
 
