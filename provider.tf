@@ -4,17 +4,22 @@ terraform {
          source = "hashicorp/oci"
       }
    }
-    backend "http" {
-      update_method = "PUT"
-      address       = var.PREAUTH_REQUEST
-  }
+   backend "remote" {
+   # The name of your Terraform Cloud organization.
+      organization = "mygermanium"
+
+    # The name of the Terraform Cloud workspace to store Terraform state files in.
+      workspaces {
+         name = "oci-temp-monitor"
+      }
+   }
 }
 
 
 provider "oci" {
-   region = "eu-frankfurt-1"
+   region       = "eu-frankfurt-1"
    tenancy_ocid = var.TENANCY_OCID
-   user_ocid = var.USER_OCID
-   fingerprint = var.FINGERPRINT
-   private_key = var.PRIVATE_KEY
+   user_ocid    = var.USER_OCID
+   fingerprint  = var.FINGERPRINT
+   private_key  = var.PRIVATE_KEY
 }
