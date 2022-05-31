@@ -112,7 +112,6 @@ jobs:
         TF_VAR_FINGERPRINT: ${{ secrets.TF_VAR_FINGERPRINT }}
         TF_VAR_COMPARTMENT_OCID: ${{ secrets.TF_VAR_COMPARTMENT_OCID }}
         TF_VAR_PRIVATE_KEY: ${{ secrets.TF_VAR_PRIVATE_KEY }}
-        TF_VAR_TENANCY_OCID: ${{ secrets.TF_VAR_TENANCY_OCID }}
         TF_VAR_USER_OCID: ${{ secrets.TF_VAR_USER_OCID }}
       if: github.ref == 'refs/heads/main' && github.event_name == 'push'
       run: terraform apply -auto-approve -input=false
