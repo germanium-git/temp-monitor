@@ -14,6 +14,7 @@ variable "COMPARTMENT_OCID" {
   type = string
 }
 
+# Use CIDR format
 variable "myIp" {
-  default = "185.230.172.74"
+  default = "185.230.172.74/32"
 }
