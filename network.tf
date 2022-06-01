@@ -32,5 +32,5 @@ resource "oci_core_network_security_group_security_rule" "test_network_security_
   source                    = var.myIp
   direction                 = "INGRESS"
   protocol                  = "all"
-  stateless                 = "NO"
+  stateless                 = false
 }
