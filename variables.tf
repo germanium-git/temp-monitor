@@ -13,3 +13,7 @@ variable "PRIVATE_KEY" {
 variable "COMPARTMENT_OCID" {
   type = string
 }
+
+variable "myIp" {
+  default = "185.230.172.74"
+}
