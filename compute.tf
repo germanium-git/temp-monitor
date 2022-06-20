@@ -40,7 +40,7 @@ resource "oci_core_instance" "apollo" {
     create_vnic_details {
         assign_public_ip = true
         subnet_id = oci_core_subnet.influx_subnet_01.id
-        nsg_ids = oci_core_network_security_group.influx_nsg.id
+        nsg_ids = [oci_core_network_security_group.influx_nsg.id]
     }
     metadata = {
         ssh_authorized_keys = file("sshkey/oracle-cloud_2021-09-08_id_rsa.pub")
