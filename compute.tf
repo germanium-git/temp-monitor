@@ -29,7 +29,8 @@ resource "oci_core_instance" "apollo" {
     # Required
     availability_domain = data.oci_identity_availability_domains.ads.availability_domains[0].name
     compartment_id = var.COMPARTMENT_OCID
-    shape = "VM.Standard.E2.1.Micro"
+    #shape = "VM.Standard.E2.1.Micro"
+    shape = "VM.Standard.A1.Flex"
     source_details {
         source_id = data.oci_core_images.oraclelinux-8.id
         source_type = "image"
