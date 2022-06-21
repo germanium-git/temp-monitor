@@ -5,7 +5,7 @@ resource "oci_core_vcn" "vcn1" {
   display_name   = "influx-vcn"
 }
 
-# Subnet
+# Subnet 01
 resource "oci_core_subnet" "influx_subnet_01" {
   cidr_block        = "10.1.1.0/24"
   display_name      = "influx_subnet_01"
@@ -16,6 +16,18 @@ resource "oci_core_subnet" "influx_subnet_01" {
 }
 
 
+# Subnet 01
+resource "oci_core_subnet" "influx_subnet_02" {
+  cidr_block        = "10.1.2.0/24"
+  display_name      = "influx_subnet_02"
+  compartment_id    = var.COMPARTMENT_OCID
+  vcn_id            = oci_core_vcn.vcn1.id
+  security_list_ids = [oci_core_vcn.vcn1.default_security_list_id]
+  route_table_id    = oci_core_vcn.vcn1.default_route_table_id
+}
+
+
+# NSG
 resource "oci_core_network_security_group" "influx_nsg" {
   #Required
   compartment_id = var.COMPARTMENT_OCID
@@ -25,7 +37,7 @@ resource "oci_core_network_security_group" "influx_nsg" {
   display_name = "influx-nsg"
 }
 
-
+# NSG Rule
 resource "oci_core_network_security_group_security_rule" "test_network_security_group_security_rule_1" {
   network_security_group_id = oci_core_network_security_group.influx_nsg.id
   source_type               = "CIDR_BLOCK"
