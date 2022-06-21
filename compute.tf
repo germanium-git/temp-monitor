@@ -1,7 +1,10 @@
 # Get all availability domains for the region
 data "oci_identity_availability_domains" "ads" {
-  compartment_id = var.COMPARTMENT_OCID
+  compartment_id = var.TENANCY_OCID
 }
+
+# okdB:EU-FRANKFURT-1-AD-1, okdB:EU-FRANKFURT-1-AD-2, okdB:EU-FRANKFURT-1-AD-3
+
 
 
 # get latest Oracle Linux 8 image
@@ -28,7 +31,8 @@ output "oracle-linux-8-latest-id" {
 
 resource "oci_core_instance" "apollo" {
     # Required
-    availability_domain = data.oci_identity_availability_domains.ads.availability_domains[0].name
+    #availability_domain = data.oci_identity_availability_domains.ads.availability_domains[0].name
+    availability_domain = "okdB:EU-FRANKFURT-1-AD-1"
     compartment_id = var.COMPARTMENT_OCID
     #shape = "VM.Standard.E2.1.Micro"
     shape = "VM.Standard.A1.Flex"
