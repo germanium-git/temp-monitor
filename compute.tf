@@ -8,10 +8,11 @@ data "oci_identity_availability_domains" "ads" {
 data "oci_core_images" "oraclelinux-8" {
   compartment_id = var.COMPARTMENT_OCID
   operating_system = "Oracle Linux"
-  operating_system_version = "8"
+  operating_system_version = "8.6"
+  shape = "VM.Standard.A1.Flex"
   filter {
     name = "display_name"
-    values = ["^([a-zA-z]+)-([a-zA-z]+)-([\\.0-9]+)-([\\.0-9-]+)$"]
+    values = ["^Oracle-Linux-8.6-aarch64-([\\.0-9-]+)$"]
     regex = true
   }
 }
