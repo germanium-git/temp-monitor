@@ -27,10 +27,6 @@ output "oracle-linux-8-latest-id" {
   value = data.oci_core_images.oraclelinux-8.images.0.id
 }
 
-output "availability-domains" {
-  value = data.oci_identity_availability_domains.ads
-}
-
 
 /*
 resource "oci_core_instance" "apollo" {
