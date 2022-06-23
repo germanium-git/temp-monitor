@@ -5,7 +5,6 @@ resource "oci_core_volume" "volume_100" {
     #Optional
     availability_domain = "okdB:EU-FRANKFURT-1-AD-2"
     display_name = "volume_100GB"
-
     size_in_gbs = 100
 }
 
