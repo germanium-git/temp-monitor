@@ -3,6 +3,7 @@ data "oci_identity_availability_domains" "ads" {
   compartment_id = var.TENANCY_OCID
 }
 
+
 # okdB:EU-FRANKFURT-1-AD-1, okdB:EU-FRANKFURT-1-AD-2, okdB:EU-FRANKFURT-1-AD-3
 
 
