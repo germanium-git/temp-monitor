@@ -28,7 +28,7 @@ output "oracle-linux-8-latest-id" {
 }
 
 
-/*
+
 resource "oci_core_instance" "apollo" {
   # Required
   availability_domain = data.oci_identity_availability_domains.ads.availability_domains[0].name
@@ -68,5 +68,3 @@ resource "oci_core_instance" "apollo" {
 output "public-ip-apollo" {
   value = oci_core_instance.apollo.public_ip
 }
-
-*/
