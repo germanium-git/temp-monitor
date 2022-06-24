@@ -18,3 +18,7 @@ variable "COMPARTMENT_OCID" {
 variable "myIp" {
   default = "185.230.172.74/32"
 }
+
+locals {
+  name = "influxdb"
+}

@@ -74,7 +74,7 @@ output "public-ip-apollo" {
 */
 
 
-
+/*
 
 # Funguje -----------------------------------------------
 
@@ -119,3 +119,7 @@ output "public-ip-apollo" {
 }
 
 
+# Oracle-Linux-8.6-aarch64-2022.05.30-0
+# ocid1.image.oc1.eu-frankfurt-1.aaaaaaaaxp2zqotv37r4zycmwfqywcujsh4scenphjjs5w2ozakmidg3vs6q
+
+*/
