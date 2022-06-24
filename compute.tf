@@ -130,8 +130,8 @@ resource "oci_core_instance" "apollo" {
   #availability_domain = data.oci_identity_availability_domains.ads.availability_domains[0].name
   availability_domain = "okdB:EU-FRANKFURT-1-AD-2"
   compartment_id      = var.COMPARTMENT_OCID
-  shape              = "VM.Standard.E2.1.Micro"
-  #shape               = "VM.Standard.A1.Flex"
+  #shape              = "VM.Standard.E2.1.Micro"
+  shape               = "VM.Standard.A1.Flex"
 
   source_details {
     source_id   = "ocid1.image.oc1.eu-frankfurt-1.aaaaaaaaxp2zqotv37r4zycmwfqywcujsh4scenphjjs5w2ozakmidg3vs6q"
