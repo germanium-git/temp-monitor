@@ -22,7 +22,7 @@ resource oci_core_internet_gateway "igw" {
   compartment_id = var.COMPARTMENT_OCID
   defined_tags = {
   }
-  display_name = '${local.name}-igw'
+  display_name = "${local.name}-igw"
   enabled      = "true"
   freeform_tags = {
   }
