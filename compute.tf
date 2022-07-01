@@ -171,7 +171,7 @@ output "public-ip-apollo" {
 # Canonical-Ubuntu-22.04-aarch64-2022.05.17-0
 # ocid1.image.oc1.eu-frankfurt-1.aaaaaaaa7eis5rnrr2tyvwa27ko53yp4ua7jur7xgnhppockzytlsa3soara
 
-/*
+
 resource "oci_core_instance" "apollo" {
   # Required
   #availability_domain = data.oci_identity_availability_domains.ads.availability_domains[0].name
@@ -212,4 +212,3 @@ output "public-ip-apollo" {
   value = oci_core_instance.apollo.public_ip
 }
 
-*/

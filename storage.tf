@@ -8,7 +8,6 @@ resource "oci_core_volume" "volume_100" {
     size_in_gbs = 100
 }
 
-/*
 
 resource "oci_core_volume_attachment" "test_volume_attachment" {
     #Required
@@ -17,4 +16,3 @@ resource "oci_core_volume_attachment" "test_volume_attachment" {
     volume_id = oci_core_volume.volume_100.id
 }
 
-*/
