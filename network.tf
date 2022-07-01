@@ -69,12 +69,21 @@ resource "oci_core_network_security_group" "influx_nsg" {
   display_name = "influx-nsg"
 }
 
-# NSG Rule
+
+# NSG Rules
 resource "oci_core_network_security_group_security_rule" "test_network_security_group_security_rule_1" {
+  for_each = var.nsg_rules
   network_security_group_id = oci_core_network_security_group.influx_nsg.id
+  description               = each.value[0]
   source_type               = "CIDR_BLOCK"
-  source                    = var.myIp
+  source                    = each.value[1]
+  protocol                  = each.value[2]
+  tcp_options {
+    destination_port_range {
+      max = each.value[3]
+      min = each.value[3]
+    }
+  }
   direction                 = "INGRESS"
-  protocol                  = "all"
   stateless                 = false
 }
