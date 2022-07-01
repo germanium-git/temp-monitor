@@ -31,7 +31,9 @@ variable "nsg_rules" {
   type = map(list(string))
 
   # Structure is as follows name = [description, source, protocol, dst_port_range]
+  # protocol - Specify either all or an IPv4 protocol number as defined in Protocol Numbers
+  # Options are supported only for ICMP ("1"), TCP ("6"), UDP ("17"), and ICMPv6 ("58").
   default = {
-    SSH   = ["SSH from my public IP", "185.230.172.74/32", "TCP", "22"]
+    SSH   = ["SSH from my public IP", "185.230.172.74/32", "6", "22"]
   }
 }
