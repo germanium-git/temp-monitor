@@ -14,8 +14,17 @@ variable "COMPARTMENT_OCID" {
   type = string
 }
 
+variable "cloudflare_api_token" {
+  description = "A valid Cloudflare token with permission to create DNS records"
+  type = string
+}
 
-#
+variable "cloudflare_zone_id" {
+  description = "Cloudflare Zone ID"
+  type = string
+}
+
+
 locals {
   name = "influxdb"
 }

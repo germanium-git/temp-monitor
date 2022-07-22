@@ -23,3 +23,8 @@ provider "oci" {
    fingerprint  = var.FINGERPRINT
    private_key  = var.PRIVATE_KEY
 }
+
+
+provider "cloudflare" {
+  api_token = var.cloudflare_api_token
+}
