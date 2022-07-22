@@ -43,7 +43,6 @@ variable "nsg_rules" {
   default = {
     SSH   = ["SSH from my public IP", "185.230.172.74/32", "6", "22"]
     SSH_TE   = ["SSH from TE", "131.207.0.0/16", "6", "22"]
-    influx   = ["InfluxDB my public IP", "185.230.172.74/32", "6", "8086"]
-    influx_TE   = ["InfluxDB from TE", "131.207.0.0/16", "6", "8086"]
+    influx   = ["InfluxDB my public IP", "0.0.0.0/0", "6", "8086"]
   }
 }
