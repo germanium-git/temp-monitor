@@ -20,6 +20,7 @@ variable "cloudflare_api_token" {
   type = string
 }
 
+
 # The value is is stored in TF Cloud as a sensitive variable
 variable "cloudflare_zone_id" {
   description = "Cloudflare Zone ID"
