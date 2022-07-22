@@ -3,6 +3,9 @@ terraform {
       oci = {
          source = "hashicorp/oci"
       }
+      cloudflare = {
+         source = "cloudflare/cloudflare"
+      }
    }
    backend "remote" {
    # The name of your Terraform Cloud organization.
@@ -26,5 +29,5 @@ provider "oci" {
 
 
 provider "cloudflare" {
-  api_token = var.cloudflare_api_token
+   api_token = var.cloudflare_api_token
 }
