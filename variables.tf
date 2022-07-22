@@ -14,11 +14,13 @@ variable "COMPARTMENT_OCID" {
   type = string
 }
 
+# The value is is stored in TF Cloud as a sensitive variable
 variable "cloudflare_api_token" {
   description = "A valid Cloudflare token with permission to create DNS records"
   type = string
 }
 
+# The value is is stored in TF Cloud as a sensitive variable
 variable "cloudflare_zone_id" {
   description = "Cloudflare Zone ID"
   type = string
