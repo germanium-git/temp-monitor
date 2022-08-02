@@ -6,6 +6,10 @@ terraform {
       cloudflare = {
          source = "cloudflare/cloudflare"
       }
+      acme = {
+            source  = "vancluever/acme"
+            version = "~> 2.10.0"
+        }
    }
    backend "remote" {
    # The name of your Terraform Cloud organization.
@@ -30,4 +34,8 @@ provider "oci" {
 
 provider "cloudflare" {
    api_token = var.cloudflare_api_token
+}
+
+provider "acme" {
+  server_url = "https://acme-staging-v02.api.letsencrypt.org/directory"
 }
