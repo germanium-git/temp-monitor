@@ -7,7 +7,7 @@ resource "acme_registration" "registration" {
   email_address   = var.email_address 
 }
 
-/*
+
 resource "acme_certificate" "certificate" {
   account_key_pem           = acme_registration.registration.account_key_pem
   common_name               = "${var.server_name}.${data.cloudflare_zone.zone.name}"
@@ -33,5 +33,3 @@ output "issuer_pem" {
 output "private_key_pem" {
   value = nonsensitive(lookup(acme_certificate.certificate, "private_key_pem"))
 }
-
-*/
