@@ -140,7 +140,7 @@ resource "oci_core_instance" "apollo" {
   }
 
   # Optional
-  display_name = "apollo"
+  display_name = var.server_name
 
   shape_config {
     ocpus         = 1

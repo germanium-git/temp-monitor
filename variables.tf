@@ -46,3 +46,14 @@ variable "nsg_rules" {
     influx   = ["InfluxDB my public IP", "0.0.0.0/0", "6", "8086"]
   }
 }
+
+
+variable "server_name" {
+    description = "Server name"
+    default = "apollo"
+}
+
+variable "email_address" {
+    description = "Email address for the certificate"
+    default = "petr.nemec@germanium.cz"
+}
