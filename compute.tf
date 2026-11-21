@@ -18,11 +18,12 @@ resource "oci_core_instance" "apollo" {
   compartment_id      = var.COMPARTMENT_OCID
   display_name        = var.server_name
 
-  # Always Free A1 allowance: 2 OCPU / 12 GB in total
+  # Always Free A1 allowance is 2 OCPU / 12 GB in total. Starting at 1 / 6
+  # because AD-2 had no capacity for 2 / 12; resize in place once it has.
   shape = "VM.Standard.A1.Flex"
   shape_config {
-    ocpus         = 2
-    memory_in_gbs = 12
+    ocpus         = 1
+    memory_in_gbs = 6
   }
 
   source_details {
