@@ -18,7 +18,7 @@ resource "oci_core_subnet" "influx_subnet_01" {
 
 
 # CREATE INTERNET GATEWAY
-resource oci_core_internet_gateway "igw" {
+resource "oci_core_internet_gateway" "igw" {
   compartment_id = var.COMPARTMENT_OCID
   defined_tags = {
   }
@@ -30,19 +30,40 @@ resource oci_core_internet_gateway "igw" {
 }
 
 
-# Subnet 02
-resource "oci_core_subnet" "influx_subnet_02" {
-  cidr_block        = "10.1.2.0/24"
-  display_name      = "influx_subnet_02"
-  compartment_id    = var.COMPARTMENT_OCID
-  vcn_id            = oci_core_vcn.vcn1.id
-  security_list_ids = [oci_core_vcn.vcn1.default_security_list_id]
-  route_table_id    = oci_core_vcn.vcn1.default_route_table_id
+# Default security list. Security lists and NSGs are combined, so the OCI
+# default "SSH from 0.0.0.0/0" rule here would override the NSG's IP
+# restriction. Keep only the standard ICMP rules; access is managed by the NSG.
+resource "oci_core_default_security_list" "default" {
+  manage_default_resource_id = oci_core_vcn.vcn1.default_security_list_id
+  display_name               = "Default Security List for ${oci_core_vcn.vcn1.display_name}"
+
+  egress_security_rules {
+    destination = "0.0.0.0/0"
+    protocol    = "all"
+  }
+
+  # Path MTU discovery
+  ingress_security_rules {
+    source   = "0.0.0.0/0"
+    protocol = "1"
+    icmp_options {
+      type = 3
+      code = 4
+    }
+  }
+
+  ingress_security_rules {
+    source   = oci_core_vcn.vcn1.cidr_block
+    protocol = "1"
+    icmp_options {
+      type = 3
+    }
+  }
 }
 
 
 # DEFINE A ROUTE TABLE
-resource oci_core_default_route_table "route_table" {
+resource "oci_core_default_route_table" "route_table" {
   defined_tags = {
   }
   display_name = "Default Route Table for ${oci_core_vcn.vcn1.display_name}"
@@ -72,7 +93,7 @@ resource "oci_core_network_security_group" "influx_nsg" {
 
 # NSG Rules
 resource "oci_core_network_security_group_security_rule" "test_network_security_group_security_rule_1" {
-  for_each = var.nsg_rules
+  for_each                  = var.nsg_rules
   network_security_group_id = oci_core_network_security_group.influx_nsg.id
   description               = each.value[0]
   source_type               = "CIDR_BLOCK"
@@ -84,6 +105,6 @@ resource "oci_core_network_security_group_security_rule" "test_network_security_
       min = each.value[3]
     }
   }
-  direction                 = "INGRESS"
-  stateless                 = false
+  direction = "INGRESS"
+  stateless = false
 }
