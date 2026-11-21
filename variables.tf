@@ -5,10 +5,12 @@ variable "USER_OCID" {
   type = string
 }
 variable "FINGERPRINT" {
-  type = string
+  type      = string
+  sensitive = true
 }
 variable "PRIVATE_KEY" {
-  type = string
+  type      = string
+  sensitive = true
 }
 variable "COMPARTMENT_OCID" {
   type = string
@@ -17,14 +19,15 @@ variable "COMPARTMENT_OCID" {
 # The value is is stored in TF Cloud as a sensitive variable
 variable "cloudflare_api_token" {
   description = "A valid Cloudflare token with permission to create DNS records"
-  type = string
+  type        = string
+  sensitive   = true
 }
 
 
 # The value is is stored in TF Cloud as a sensitive variable
 variable "cloudflare_zone_id" {
   description = "Cloudflare Zone ID"
-  type = string
+  type        = string
 }
 
 
@@ -35,25 +38,25 @@ locals {
 # --Network Security Group rules protecting the VM(s)
 variable "nsg_rules" {
   description = "Network Security Group"
-  type = map(list(string))
+  type        = map(list(string))
 
   # Structure is as follows name = [description, source, protocol, dst_port_range]
   # protocol - Specify either all or an IPv4 protocol number as defined in Protocol Numbers
   # Options are supported only for ICMP ("1"), TCP ("6"), UDP ("17"), and ICMPv6 ("58").
   default = {
-    SSH   = ["SSH from my public IP", "185.230.172.74/32", "6", "22"]
-    SSH_TE   = ["SSH from TE", "131.207.0.0/16", "6", "22"]
-    influx   = ["InfluxDB my public IP", "0.0.0.0/0", "6", "8086"]
+    SSH    = ["SSH from my public IP", "185.230.172.74/32", "6", "22"]
+    SSH_TE = ["SSH from TE", "131.207.0.0/16", "6", "22"]
+    influx = ["InfluxDB my public IP", "0.0.0.0/0", "6", "8086"]
   }
 }
 
 
 variable "server_name" {
-    description = "Server name"
-    default = "apollo"
+  description = "Server name"
+  default     = "apollo"
 }
 
 variable "email_address" {
-    description = "Email address for the certificate"
-    default = "petr.nemec@germanium.cz"
+  description = "Email address for the certificate"
+  default     = "petr.nemec@germanium.cz"
 }

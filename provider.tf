@@ -1,46 +1,50 @@
 terraform {
-   required_providers {
-      oci = {
-         source = "hashicorp/oci"
-      }
-      cloudflare = {
-         source = "cloudflare/cloudflare"
-      }
-      acme = {
-            source  = "vancluever/acme"
-            version = "~> 2.10.0"
-        }
-   }
-   backend "remote" {
-   # The name of your Terraform Cloud organization.
-      organization = "mygermanium"
+  required_version = ">= 1.5"
 
-    # The name of the Terraform Cloud workspace to store Terraform state files in.
-      workspaces {
-         name = "oci-temp-monitor"
-      }
-   }
+  required_providers {
+    oci = {
+      # Same releases as oracle/oci; kept as hashicorp/oci to match the state
+      source  = "hashicorp/oci"
+      version = "~> 9.14"
+    }
+    cloudflare = {
+      # v5 renames cloudflare_record; migrate separately (via 4.52.5 first)
+      source  = "cloudflare/cloudflare"
+      version = "~> 4.52"
+    }
+    acme = {
+      source  = "vancluever/acme"
+      version = "~> 2.10.0"
+    }
+    tls = {
+      source  = "hashicorp/tls"
+      version = "~> 4.0"
+    }
+  }
+
+  backend "remote" {
+    organization = "mygermanium"
+
+    workspaces {
+      name = "oci-temp-monitor"
+    }
+  }
 }
-
 
 provider "oci" {
-   region       = "eu-frankfurt-1"
-   tenancy_ocid = var.TENANCY_OCID
-   user_ocid    = var.USER_OCID
-   fingerprint  = var.FINGERPRINT
-   private_key  = var.PRIVATE_KEY
+  region       = "eu-frankfurt-1"
+  tenancy_ocid = var.TENANCY_OCID
+  user_ocid    = var.USER_OCID
+  fingerprint  = var.FINGERPRINT
+  private_key  = var.PRIVATE_KEY
 }
 
-
 provider "cloudflare" {
-   api_token = var.cloudflare_api_token
+  api_token = var.cloudflare_api_token
 }
 
 provider "acme" {
-  # Staging
-  #server_url = "https://acme-staging-v02.api.letsencrypt.org/directory"
-  
-  # Production
+  # Staging (use first when testing, production has rate limits):
+  # server_url = "https://acme-staging-v02.api.letsencrypt.org/directory"
   server_url = "https://acme-v02.api.letsencrypt.org/directory"
-  
 }
