@@ -1,5 +1,6 @@
 terraform {
-  required_version = ">= 1.5"
+  # Terraform Cloud workspace oci-temp-monitor still runs 1.2.1
+  required_version = ">= 1.2"
 
   required_providers {
     oci = {
