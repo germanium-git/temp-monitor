@@ -3,12 +3,14 @@ locals {
   availability_domain = "okdB:EU-FRANKFURT-1-AD-2"
 }
 
-# Newest Canonical Ubuntu 24.04 image for Ampere A1 (aarch64)
-data "oci_core_images" "ubuntu_2404_a1" {
+# Newest Canonical Ubuntu 24.04 Minimal image for the Always Free AMD micro
+# shape (x86_64). Minimal keeps memory use down on the 1 GB VM.
+# A1 (Ampere) capacity was unavailable in AD-2, so apollo runs on E2.1.Micro.
+data "oci_core_images" "ubuntu_2404_micro" {
   compartment_id           = var.COMPARTMENT_OCID
   operating_system         = "Canonical Ubuntu"
-  operating_system_version = "24.04"
-  shape                    = "VM.Standard.A1.Flex"
+  operating_system_version = "24.04 Minimal"
+  shape                    = "VM.Standard.E2.1.Micro"
   sort_by                  = "TIMECREATED"
   sort_order               = "DESC"
 }
@@ -18,17 +20,12 @@ resource "oci_core_instance" "apollo" {
   compartment_id      = var.COMPARTMENT_OCID
   display_name        = var.server_name
 
-  # Always Free A1 allowance is 2 OCPU / 12 GB in total. Starting at 1 / 6
-  # because AD-2 had no capacity for 2 / 12; resize in place once it has.
-  shape = "VM.Standard.A1.Flex"
-  shape_config {
-    ocpus         = 1
-    memory_in_gbs = 6
-  }
+  # Always Free: fixed 1/8 OCPU, 1 GB RAM. No shape_config for a fixed shape.
+  shape = "VM.Standard.E2.1.Micro"
 
   source_details {
     source_type             = "image"
-    source_id               = data.oci_core_images.ubuntu_2404_a1.images[0].id
+    source_id               = data.oci_core_images.ubuntu_2404_micro.images[0].id
     boot_volume_size_in_gbs = 50
   }
 
@@ -56,5 +53,5 @@ output "public-ip-apollo" {
 }
 
 output "apollo-image" {
-  value = data.oci_core_images.ubuntu_2404_a1.images[0].display_name
+  value = data.oci_core_images.ubuntu_2404_micro.images[0].display_name
 }
