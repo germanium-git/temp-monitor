@@ -1,0 +1,24 @@
+# Merging a Dependabot PR is a push to main, which runs terraform apply.
+# Check the PR's plan before merging; never auto-merge.
+version: 2
+updates:
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "monthly"
+    groups:
+      actions:
+        patterns: ["*"]
+
+  - package-ecosystem: "terraform"
+    directory: "/"
+    schedule:
+      interval: "monthly"
+    groups:
+      providers:
+        patterns: ["*"]
+    ignore:
+      # Major provider releases need manual migration
+      # (e.g. cloudflare v5 renames cloudflare_record).
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major"]
